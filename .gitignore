@@ -3,3 +3,4 @@
 /heima-leadnews-model/target/
 /heima-leadnews-service/heima-leadnews-user/target/
 /heima-leadnews-utils/target/
+**/target/**
