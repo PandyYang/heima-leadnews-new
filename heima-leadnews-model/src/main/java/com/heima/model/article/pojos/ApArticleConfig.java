@@ -5,12 +5,32 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+/**
+ * <p>
+ * APP已发布文章配置表
+ * </p>
+ *
+ * @author itheima
+ */
+
 @Data
+@NoArgsConstructor
 @TableName("ap_article_config")
 public class ApArticleConfig implements Serializable {
+
+    public ApArticleConfig(Long articleId){
+        this.articleId = articleId;
+        this.isDelete = false;
+        this.isDown = false;
+        this.isForward = true;
+        this.isComment = true;
+    }
+
+
 
     @TableId(value = "id",type = IdType.ID_WORKER)
     private Long id;

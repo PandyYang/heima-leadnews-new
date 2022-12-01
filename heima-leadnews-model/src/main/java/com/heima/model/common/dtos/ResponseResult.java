@@ -1,4 +1,4 @@
-package com.heima.app.gateway.model.common.dtos;
+package com.heima.model.common.dtos;
 
 import com.alibaba.fastjson.JSON;
 import com.heima.model.common.enums.AppHttpCodeEnum;

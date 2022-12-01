@@ -1,4 +1,4 @@
-package com.heima.app.gateway.common.constants;
+package com.heima.common.constants;
 
 public class ArticleConstants {
     public static final Short LOADTYPE_LOAD_MORE = 1;
