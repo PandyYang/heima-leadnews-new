@@ -39,6 +39,7 @@ public class WmUserServiceImpl extends ServiceImpl<WmUserMapper, WmUser> impleme
         if(pswd.equals(wmUser.getPassword())){
             //4.返回数据  jwt
             Map<String,Object> map  = new HashMap<>();
+            // 登录时创建token
             map.put("token", AppJwtUtil.getToken(wmUser.getId().longValue()));
             wmUser.setSalt("");
             wmUser.setPassword("");

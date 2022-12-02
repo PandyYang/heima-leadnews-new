@@ -49,6 +49,17 @@ public class AuthorizeFilter implements Ordered, GlobalFilter {
                 return response.setComplete();
             }
 
+            // 获取用户信息存入header 其实可以在下游服务器解 但是网关统一做这件事
+            Object userId = claimsBody.get("id");
+
+            // 写入header
+            ServerHttpRequest httpRequest = request.mutate().headers(httpHeaders -> {
+                httpHeaders.add("userId", userId + "");
+            }).build();
+
+            // 重置请求
+            exchange.mutate().request(httpRequest);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
