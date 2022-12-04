@@ -5,6 +5,9 @@ import com.heima.model.article.dtos.ArticleDto;
 import com.heima.model.article.dtos.ArticleHomeDto;
 import com.heima.model.article.pojos.ApArticle;
 import com.heima.model.common.dtos.ResponseResult;
+import freemarker.template.TemplateException;
+
+import java.io.IOException;
 
 public interface ApArticleService extends IService<ApArticle> {
 
@@ -21,6 +24,6 @@ public interface ApArticleService extends IService<ApArticle> {
      * @param dto
      * @return
      */
-    public ResponseResult saveArticle(ArticleDto dto);
+    public ResponseResult saveArticle(ArticleDto dto) throws TemplateException, IOException;
 
 }

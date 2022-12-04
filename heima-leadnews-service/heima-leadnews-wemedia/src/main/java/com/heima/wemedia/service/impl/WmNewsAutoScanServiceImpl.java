@@ -37,7 +37,7 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
      */
     @Override
     @Async
-    public void autoScanWmNews(Integer id) {
+    public void autoScanWmNews(Integer id) throws Exception {
         // 查询文章
         WmNews wmNews = wmNewsMapper.selectById(id);
         if (wmNews == null) {
@@ -80,7 +80,7 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
     @Autowired
     private WmUserMapper wmUserMapper;
 
-    private ResponseResult saveAppArticle(WmNews wmNews) {
+    private ResponseResult saveAppArticle(WmNews wmNews) throws Exception {
         ArticleDto dto = new ArticleDto();
 
         // 属性得拷贝
