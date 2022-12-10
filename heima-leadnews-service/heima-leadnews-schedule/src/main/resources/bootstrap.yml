@@ -1,0 +1,16 @@
+server:
+  port: 51701
+spring:
+  application:
+    name: leadnews-schedule
+  cloud:
+    nacos:
+      discovery:
+        server-addr: hadoop102:8848
+      config:
+        server-addr: hadoop102:8848
+        file-extension: yml
+  redis:
+    host: hadoop102
+    password:
+    port: 6379
