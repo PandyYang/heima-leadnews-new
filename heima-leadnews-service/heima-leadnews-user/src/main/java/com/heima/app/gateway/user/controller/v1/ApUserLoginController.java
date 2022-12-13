@@ -1,8 +1,8 @@
 package com.heima.app.gateway.user.controller.v1;
 
-import com.heima.app.gateway.model.common.dtos.ResponseResult;
-import com.heima.app.gateway.model.user.dtos.LoginDto;
 import com.heima.app.gateway.user.service.ApUserService;
+import com.heima.model.common.dtos.ResponseResult;
+import com.heima.model.user.dtos.LoginDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,13 +2,13 @@ package com.heima.app.gateway.user.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.heima.app.gateway.model.common.enums.AppHttpCodeEnum;
-import com.heima.app.gateway.model.user.dtos.LoginDto;
 import com.heima.app.gateway.user.mapper.ApUserMapper;
 import com.heima.app.gateway.user.service.ApUserService;
-import com.heima.app.gateway.model.common.dtos.ResponseResult;
-import com.heima.app.gateway.model.user.pojos.ApUser;
-import com.heima.app.gateway.utils.common.AppJwtUtil;
+import com.heima.model.common.dtos.ResponseResult;
+import com.heima.model.common.enums.AppHttpCodeEnum;
+import com.heima.model.user.dtos.LoginDto;
+import com.heima.model.user.pojos.ApUser;
+import com.heima.utils.common.AppJwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
