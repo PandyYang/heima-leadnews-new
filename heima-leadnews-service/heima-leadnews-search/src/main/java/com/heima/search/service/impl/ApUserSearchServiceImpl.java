@@ -2,10 +2,12 @@ package com.heima.search.service.impl;
 
 import com.heima.model.common.dtos.ResponseResult;
 import com.heima.model.common.enums.AppHttpCodeEnum;
+import com.heima.model.search.dtos.HistorySearchDto;
 import com.heima.model.user.pojos.ApUser;
 import com.heima.search.pojos.ApUserSearch;
 import com.heima.search.service.ApUserSearchService;
 import com.heima.utils.thread.AppThreadLocalUtil;
+import com.mongodb.client.result.DeleteResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -80,5 +82,28 @@ public class ApUserSearchServiceImpl implements ApUserSearchService {
                 with(Sort.by(Sort.Direction.DESC, "createdTime")), ApUserSearch.class);
 
         return ResponseResult.okResult(searchList);
+    }
+
+    /**
+     * @param dto
+     * @return
+     */
+    @Override
+    public ResponseResult delUserHistory(HistorySearchDto dto) {
+
+        if (dto.getId() == null) {
+            return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);
+        }
+
+        ApUser user = AppThreadLocalUtil.getUser();
+        if (user == null) {
+            return ResponseResult.errorResult(AppHttpCodeEnum.NEED_LOGIN);
+        }
+
+        DeleteResult remove = mongoTemplate.remove(Query.query(Criteria.where("userId").is(user.getId()).and("id").is(dto.getId())), ApUserSearch.class);
+        if (remove.getDeletedCount() > 0) {
+            return ResponseResult.okResult(AppHttpCodeEnum.SUCCESS);
+        }
+        return ResponseResult.okResult(AppHttpCodeEnum.DATA_NOT_EXIST);
     }
 }
