@@ -1,19 +1,24 @@
 package com.heima.article.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.heima.article.mapper.ApArticleContentMapper;
 import com.heima.article.mapper.ApArticleMapper;
 import com.heima.article.service.ArticleFreemarkerService;
+import com.heima.common.constants.ArticleConstants;
 import com.heima.file.service.FileStorageService;
 import com.heima.model.article.pojos.ApArticle;
 import com.heima.model.article.pojos.ApArticleContent;
+import com.heima.model.search.vos.SearchArticleVo;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -78,7 +83,35 @@ public class ArticleFreemarkerServiceImpl implements ArticleFreemarkerService {
             ApArticle article = new ApArticle();
             article.setId(aparticle.getId());
             article.setStaticUrl(path);
+
             apArticleMapper.updateById(article);
+
+            ApArticle apArticle = apArticleMapper.selectById(article.getId());
+
+            // 发送消息 创建索引
+            createArticleEsIndex(apArticle, content, path);
         }
+    }
+
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTemplate;
+
+    /**
+     * 发送消息 创建索引
+     * @param article
+     * @param content
+     * @param path
+     */
+    private void createArticleEsIndex(ApArticle article, String content, String path) {
+        SearchArticleVo searchArticleVo = new SearchArticleVo();
+        try {
+            BeanUtils.copyProperties(article, searchArticleVo);
+            searchArticleVo.setContent(content);
+            searchArticleVo.setStaticUrl(path);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        kafkaTemplate.send(ArticleConstants.ARTICLE_ES_SYNC_TOPIC, JSON.toJSONString(searchArticleVo));
     }
 }
