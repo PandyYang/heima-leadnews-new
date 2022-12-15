@@ -14,4 +14,9 @@
 - MybatisPlus
 - 分布式ID
 - MySQL
-... 待补充
+- Docker
+- Zookeeper
+- K8s
+- XXL-Job
+- KafKa-Stream (对比Hadoop流式计算)
+- Jenkins
