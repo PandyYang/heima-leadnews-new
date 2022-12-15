@@ -5,5 +5,5 @@ xxl:
     admin:
       addresses: http://hadoop103:8888/xxl-job-admin
     executor:
-      appname: xxl-job-executor-sample
+      appname: xxl-job-sharding-executor
       port: ${executor.port:9999}
