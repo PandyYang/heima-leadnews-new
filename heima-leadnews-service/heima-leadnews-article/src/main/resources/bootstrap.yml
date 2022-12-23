@@ -10,3 +10,6 @@ spring:
       config:
         server-addr: hadoop102:8848
         file-extension: yml
+kafka:
+  hosts: hadoop102:9092
+  group: ${spring.application.name}
